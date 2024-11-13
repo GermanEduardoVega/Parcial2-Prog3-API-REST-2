@@ -1,27 +1,24 @@
 package com.example.Parcial1_ApiRest_VideosHasta16.services;
 
+import com.example.Parcial1_ApiRest_VideosHasta16.entities.BaseEntidad;
 import com.example.Parcial1_ApiRest_VideosHasta16.entities.Persona;
-import com.example.Parcial1_ApiRest_VideosHasta16.repositories.PersonaRepository;
+import com.example.Parcial1_ApiRest_VideosHasta16.repositories.BaseRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
-@Service
-public class PersonaService implements BaseService<Persona>{
 
-    //@Autowired
-    private PersonaRepository personaRepository; //creamos el objeto que se va a comunicar con la bd
-                                                //Declaramos el personaRepository para la inyeccion de dependencias a travez del constructor (o con autowired)
+public abstract class BaseServiceImpl<E extends BaseEntidad, ID extends Serializable> implements BaseService<E, ID> {
+    protected BaseRepository <E,ID> baseRepository;//llamamos una instancia de nuestro repositorio base lo hacemos protegido para que lo puedan utilizar las clases que heredan de BaseService
 
-    //Constructor que reemplaza el Autowired
-    public PersonaService (PersonaRepository personaRepository){// Este constructor no lo llamamos desde ningun lado spring se va a  encargar de obtener las dependencias que necesita el servicio
-        this.personaRepository = personaRepository;
-
+    //Constructor
+    public BaseServiceImpl(BaseRepository<E, ID> baseRepository) {
+        this.baseRepository = baseRepository;
     }
 
 
+    //Traemos los metodos del personaService y los hacemos GENERICOS
 
     @Override
     @Transactional
@@ -91,12 +88,3 @@ public class PersonaService implements BaseService<Persona>{
         }
     }
 }
-
-
-
-
-/**
- * Completando los metodos del servicio
- * */
-
-
