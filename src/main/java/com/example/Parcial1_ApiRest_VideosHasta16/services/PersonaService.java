@@ -1,94 +1,24 @@
 package com.example.Parcial1_ApiRest_VideosHasta16.services;
 
 import com.example.Parcial1_ApiRest_VideosHasta16.entities.Persona;
+import com.example.Parcial1_ApiRest_VideosHasta16.repositories.BaseRepository;
 import com.example.Parcial1_ApiRest_VideosHasta16.repositories.PersonaRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 @Service
-public class PersonaService implements BaseService<Persona>{
+public class PersonaService extends BaseServiceImpl<Persona,Long>{
+//public class PersonaService implements BaseService<Persona>{
 
-    //@Autowired
+    @Autowired
     private PersonaRepository personaRepository; //creamos el objeto que se va a comunicar con la bd
-                                                //Declaramos el personaRepository para la inyeccion de dependencias a travez del constructor (o con autowired)
+                                                //Declaramos el personaRepository para la inyeccion de dependencias a travez del constructor
 
-    //Constructor que reemplaza el Autowired
-    public PersonaService (PersonaRepository personaRepository){// Este constructor no lo llamamos desde ningun lado spring se va a  encargar de obtener las dependencias que necesita el servicio
-        this.personaRepository = personaRepository;
+    public PersonaService (BaseRepository<Persona, Long> baseRepository){// Este constructor no lo llamamos desde ningun lado spring se va a  encargar de obtener las dependencias que necesita el servicio
+        super(baseRepository);
 
-    }
-
-
-
-    @Override
-    @Transactional
-    public List<Persona> findAll() throws Exception {
-        try {
-            List<Persona> entities = personaRepository.findAll();//obtiene de la BD todas las personas registradas
-            return entities;
-
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-    }
-
-    @Override
-    @Transactional
-    public Persona findById(Long id) throws Exception {
-        try {
-            Optional<Persona> entityOpcional = personaRepository.findById(id);
-            return entityOpcional.get();//este metodo va a obtener una entidad si es que la encuentra
-
-        }catch (Exception e){   //de otra forma lanza una excepcion
-            throw new Exception(e.getMessage());
-        }
-    }
-
-    @Override
-    @Transactional
-    public Persona save(Persona entity) throws Exception {
-        try {
-            entity = personaRepository.save(entity);
-            return entity;
-
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-    }
-
-    @Override
-    @Transactional
-    public Persona update(Long id, Persona entity) throws Exception {
-        try {
-            Optional<Persona> entityOptional = personaRepository.findById(id);
-            Persona persona = entityOptional.get();
-            //persona = personaRepository.save(persona); //se guarda la persona que obtengo de la BD
-            persona = personaRepository.save(entity);   // guarda la nueva entidad actualizar
-            return persona;
-
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-
-        }
-    }
-
-    @Override
-    @Transactional
-    public boolean delete(Long id) throws Exception {
-        try {
-            if (personaRepository.existsById(id)){
-                personaRepository.deleteById(id);
-                return true;
-            }else{
-                throw new Exception();
-            }
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-
-        }
     }
 }
 
@@ -97,6 +27,17 @@ public class PersonaService implements BaseService<Persona>{
 
 /**
  * Completando los metodos del servicio
+ *@Autowired
+ *     private PersonaRepository personaRepository;
+ *
+ * BaseRepository<Persona, Long> en el PersonaService la BaseRepository que creamos en la implementacion de base service (BaseServiceImpl)va a tener todos los metodos del BaseRepository todos los metodos que hagamos
+ * dentro de esta interface , pero si quisieramos acceder a los metodos que hagamos en el repositorio especifico de cada uno de estos modelos PersonaRepository, AutorRepository
+ * vamos a tener que hacer una instancia de PersonaRepository de otra forma no podriamos acceder a los metodos por ejemplo si hacemos QUERYS en el PersonaRepository no vamos a poder acceder a esos
+ * metodos desde el repositorio BaseEntidad
+ * para eso hacemos el @Autowired de un repositorio de PersonaRepository en la clase PersonaService y de esta forma vamos
+ * a poder acceder desde este repositorio a todos los metodos que este incluya
+ *
+ * Creamos el servicio para AutorService
  * */
 
 

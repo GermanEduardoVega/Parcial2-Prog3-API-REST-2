@@ -27,3 +27,6 @@ public interface BaseService<E extends BaseEntidad,ID extends Serializable>{
 
 
 }
+
+
+//Interfaz Generica
