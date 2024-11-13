@@ -22,9 +22,9 @@ public abstract class BaseServiceImpl<E extends BaseEntidad, ID extends Serializ
 
     @Override
     @Transactional
-    public List<Persona> findAll() throws Exception {
+    public List<E> findAll() throws Exception {
         try {
-            List<Persona> entities = personaRepository.findAll();//obtiene de la BD todas las personas registradas
+            List<E> entities = baseRepository.findAll();//obtiene de la BD todas las personas registradas
             return entities;
 
         }catch (Exception e){
@@ -34,9 +34,9 @@ public abstract class BaseServiceImpl<E extends BaseEntidad, ID extends Serializ
 
     @Override
     @Transactional
-    public Persona findById(Long id) throws Exception {
+    public E findById(ID id) throws Exception {
         try {
-            Optional<Persona> entityOpcional = personaRepository.findById(id);
+            Optional<E> entityOpcional = baseRepository.findById(id);
             return entityOpcional.get();//este metodo va a obtener una entidad si es que la encuentra
 
         }catch (Exception e){   //de otra forma lanza una excepcion
@@ -46,9 +46,9 @@ public abstract class BaseServiceImpl<E extends BaseEntidad, ID extends Serializ
 
     @Override
     @Transactional
-    public Persona save(Persona entity) throws Exception {
+    public E save(E entity) throws Exception {
         try {
-            entity = personaRepository.save(entity);
+            entity = baseRepository.save(entity);
             return entity;
 
         }catch (Exception e){
@@ -58,13 +58,13 @@ public abstract class BaseServiceImpl<E extends BaseEntidad, ID extends Serializ
 
     @Override
     @Transactional
-    public Persona update(Long id, Persona entity) throws Exception {
+    public E update(ID id, E entity) throws Exception {
         try {
-            Optional<Persona> entityOptional = personaRepository.findById(id);
-            Persona persona = entityOptional.get();
+            Optional<E> entityOptional = baseRepository.findById(id);
+            E entityUpdate = entityOptional.get();
             //persona = personaRepository.save(persona); //se guarda la persona que obtengo de la BD
-            persona = personaRepository.save(entity);   // guarda la nueva entidad actualizar
-            return persona;
+            entityUpdate = baseRepository.save(entity);   // guarda la nueva entidad actualizar
+            return entityUpdate;
 
         }catch (Exception e){
             throw new Exception(e.getMessage());
@@ -74,10 +74,10 @@ public abstract class BaseServiceImpl<E extends BaseEntidad, ID extends Serializ
 
     @Override
     @Transactional
-    public boolean delete(Long id) throws Exception {
+    public boolean delete(ID id) throws Exception {
         try {
-            if (personaRepository.existsById(id)){
-                personaRepository.deleteById(id);
+            if (baseRepository.existsById(id)){
+                baseRepository.deleteById(id);
                 return true;
             }else{
                 throw new Exception();
