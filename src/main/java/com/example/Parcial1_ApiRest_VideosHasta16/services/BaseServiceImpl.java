@@ -11,7 +11,7 @@ import java.util.Optional;
 public abstract class BaseServiceImpl<E extends BaseEntidad, ID extends Serializable> implements BaseService<E, ID> {
     protected BaseRepository <E,ID> baseRepository;//llamamos una instancia de nuestro repositorio base lo hacemos protegido para que lo puedan utilizar las clases que heredan de BaseService
 
-    public BaseServiceImpl(BaseRepository<E, ID> baseRepository) {  //Constructor
+    public BaseServiceImpl(BaseRepository<E, ID> baseRepository) {  //Constructor de esta clase
         this.baseRepository = baseRepository;
     }
 
@@ -83,6 +83,16 @@ public abstract class BaseServiceImpl<E extends BaseEntidad, ID extends Serializ
         }
     }
 }
+
+//Interfaz Generica BaseService
+//implementacion Generica de este servicio (BaseService) que es abstracta (BaseServiceImpl) esta implementacion
+// va a poder heredar cada uno de los servicios que hagamos y ya no vamos a tener que implementar esos metodos
+// sino que los van a heredar de esta clase abstracta
+
+//hacemos el Constructor
+//llamamos una instancia de nuestro repositorio base lo hacemos protegido para que lo puedan utilizar las clases que heredan de BaseService
+//Implementar los metoodos de nuestra interface BaseServiceImpl (los traemos de PersonaService)
+//cambiamos el PersonaService para que consuma el BaseServiceImpl
 
 //Traemos los metodos del personaService y los hacemos GENERICOS
 //Tenemos el modelo actualizado para recibir los tipos que hemos asignado

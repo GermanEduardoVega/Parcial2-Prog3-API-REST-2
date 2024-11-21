@@ -1,20 +1,6 @@
 package com.example.Parcial1_ApiRest_VideosHasta16.services;
 
 import com.example.Parcial1_ApiRest_VideosHasta16.entities.Autor;
-import com.example.Parcial1_ApiRest_VideosHasta16.repositories.AutorRepository;
-import com.example.Parcial1_ApiRest_VideosHasta16.repositories.BaseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class AutorService extends BaseServiceImpl<Autor,Long> {
-
-    @Autowired
-    private AutorRepository autorRepository;
-
-    public AutorService(BaseRepository<Autor, Long> baseRepository) {//Constructor
-        super(baseRepository);
-    }
-
-
+public interface AutorService extends BaseService<Autor,Long>{ //Query's de nuestra API
 }

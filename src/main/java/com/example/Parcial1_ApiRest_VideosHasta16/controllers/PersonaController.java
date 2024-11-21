@@ -1,8 +1,7 @@
 package com.example.Parcial1_ApiRest_VideosHasta16.controllers;
 
 import com.example.Parcial1_ApiRest_VideosHasta16.entities.Persona;
-import com.example.Parcial1_ApiRest_VideosHasta16.services.PersonaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.Parcial1_ApiRest_VideosHasta16.services.PersonaServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +16,12 @@ import java.util.Map;
 @RequestMapping("api/v1/personas")              // URI base para acceder a los recursos de Persona
 public class PersonaController {
     //@Autowired
-    private PersonaService personaService;       // Inyección de dependencia para el servicio de Persona
+    private PersonaServiceImpl personaServiceImpl;       // Inyección de dependencia para el servicio de PersonaServiceImpl
+    //private PersonaService personaService;            // Inyección de dependencia para el servicio de PersonaService
 
     // Constructor para inyectar PersonaService, reemplazando la anotación @Autowired
-    public PersonaController (PersonaService personaService) {
-        this.personaService = personaService;
+    public PersonaController (PersonaServiceImpl personaServiceImpl) {
+        this.personaServiceImpl = personaServiceImpl;
     }
 
     /**
@@ -35,7 +35,7 @@ public class PersonaController {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(personaService.findAll());
+                    .body(personaServiceImpl.findAll());
 
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -60,7 +60,7 @@ public class PersonaController {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(personaService.findById(id));
+                    .body(personaServiceImpl.findById(id));
 
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -85,7 +85,7 @@ public class PersonaController {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(personaService.save(entity));
+                    .body(personaServiceImpl.save(entity));
 
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -111,7 +111,7 @@ public class PersonaController {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(personaService.update(id, entity));
+                    .body(personaServiceImpl.update(id, entity));
 
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -136,7 +136,7 @@ public class PersonaController {
         try {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
-                    .body(personaService.delete(id));
+                    .body(personaServiceImpl.delete(id));
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
             error.put("message", "Error al eliminar la persona con ID: " + id);
