@@ -9,20 +9,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
-// Define esta clase como un controlador REST, un bean que maneja solicitudes HTTP
-@CrossOrigin(origins = "*")
-// Permite el acceso desde distintos orígenes o clientes a los datos de la API
+@RestController // Define esta clase como un controlador REST, un bean que maneja solicitudes HTTP
+@CrossOrigin(origins = "*") // Permite el acceso desde distintos orígenes o clientes a los datos de la API
 @RequestMapping("api/v1/personas")              // URI base para acceder a los recursos de Persona
-public class PersonaController {
+public class PersonaController extends BaseControllerImpl<Persona,PersonaServiceImpl> {
+
+
+//public class PersonaController {
     //@Autowired
-    private PersonaServiceImpl personaServiceImpl;       // Inyección de dependencia para el servicio de PersonaServiceImpl
+    //private PersonaServiceImpl personaServiceImpl;       // Inyección de dependencia para el servicio de PersonaServiceImpl
     //private PersonaService personaService;            // Inyección de dependencia para el servicio de PersonaService
 
     // Constructor para inyectar PersonaService, reemplazando la anotación @Autowired
-    public PersonaController (PersonaServiceImpl personaServiceImpl) {
-        this.personaServiceImpl = personaServiceImpl;
-    }
+    //public PersonaController (PersonaServiceImpl personaServiceImpl) {
+    //    this.personaServiceImpl = personaServiceImpl;
+    //}
+
+
 
 }
 

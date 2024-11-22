@@ -29,7 +29,7 @@ public abstract class BaseControllerImpl<E extends BaseEntidad, S extends BaseSe
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(personaServiceImpl.findAll());
+                    .body(servicio.findAll());
 
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -54,7 +54,7 @@ public abstract class BaseControllerImpl<E extends BaseEntidad, S extends BaseSe
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(personaServiceImpl.findById(id));
+                    .body(servicio.findById(id));
 
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -75,11 +75,11 @@ public abstract class BaseControllerImpl<E extends BaseEntidad, S extends BaseSe
      * @PostMapping("") // Define una solicitud POST para guardar un nuevo registro.
      */
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody Persona entity) {
+    public ResponseEntity<?> save(@RequestBody E entity) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(personaServiceImpl.save(entity));
+                    .body(servicio.save(entity));
 
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -101,11 +101,11 @@ public abstract class BaseControllerImpl<E extends BaseEntidad, S extends BaseSe
      * @PutMapping("/{id}") // Define una solicitud PUT para actualizar un registro existente mediante el ID.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Persona entity) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody E entity) {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(personaServiceImpl.update(id, entity));
+                    .body(servicio.update(id, entity));
 
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -130,7 +130,7 @@ public abstract class BaseControllerImpl<E extends BaseEntidad, S extends BaseSe
         try {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
-                    .body(personaServiceImpl.delete(id));
+                    .body(servicio.delete(id));
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
             error.put("message", "Error al eliminar la persona con ID: " + id);
